@@ -1,0 +1,22 @@
+@font-face {
+  font-family: pixelFont;
+  src: url('../../frontend/src/assets/fonts/arcadeclassic.regular.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
+@font-face {
+  font-family: pacman;
+  src: url('../../frontend/src/assets/fonts/PAC-FONT.TTF');
+  font-weight: normal;
+  font-style: normal;
+}
+@import "tailwindcss";
+
+@theme{
+  --font-pixelfont: pixelFont, 'sans-serif';
+  --font-pacman: pixelFont, 'sans-serif';
+}
+
+:root {
+  background-color: #000000;
+}

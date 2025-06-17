@@ -37,12 +37,12 @@ export default async function processQueue() {
         const data = await foodData.json()
         const foodItemUserDetails = await prisma.foodItemsStatus.findFirst({
           where:{
-            userEmail: foodDetails.userId,
+            userEmail: foodDetails.userEmail,
             foodId: foodDetails.foodId
           }
         })
         if(foodItemUserDetails){
-          notifySSEClients(foodDetails.foodId, foodDetails.userId, {
+          notifySSEClients(foodDetails.foodId, foodDetails.userEmail, {
             safeOrNot: foodItemUserDetails.status,
             reason: foodItemUserDetails.reason,
             status: 'close',
@@ -84,14 +84,14 @@ export default async function processQueue() {
               await prisma.foodItemsStatus.create({
                 data: {
                   foodName: data.product.product_name,
-                  userEmail: foodDetails.userId,
+                  userEmail: foodDetails.userEmail,
                   reason: jsonData.reason!,
                   status: jsonData.safeOrNot!,
                   foodId: foodDetails.foodId
                 },
               });
             }
-            notifySSEClients(foodDetails.foodId, foodDetails.userId, {
+            notifySSEClients(foodDetails.foodId, foodDetails.userEmail, {
               ...jsonData,
               status: 'close',
               foodItemDetails: {
@@ -109,7 +109,7 @@ export default async function processQueue() {
             setTimeout(async () => {
               const retryFoodDetails: QueueObject = {
                 foodId: foodDetails.foodId,
-                userId: foodDetails.userId,
+                userEmail: foodDetails.userEmail,
                 userAllergies: foodDetails.userAllergies,
                 failureAttempts: foodDetails.failureAttempts - 1,
                 delayBeforeTrial: foodDetails.delayBeforeTrial + 2,
@@ -121,7 +121,7 @@ export default async function processQueue() {
         }
       } catch (error) {
         console.log(error);
-        notifySSEClients(foodDetails.foodId, foodDetails.userId, { status: 'error', error: true })
+        notifySSEClients(foodDetails.foodId, foodDetails.userEmail, { status: 'error', error: true })
       }
     }
   } catch (error) {

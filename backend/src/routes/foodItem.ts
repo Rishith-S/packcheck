@@ -10,11 +10,11 @@ import jwt from 'jsonwebtoken';
 const foodItem = express.Router()
 
 
-foodItem.post('/packcheck/:foodId/:userId', async (req, res) => {
-  const { foodId, userId } = req.params
+foodItem.post('/packcheck/:foodId/:userEmail', async (req, res) => {
+  const { foodId, userEmail } = req.params
   const userAllergies = req.body.userAllergies;
   try {
-    const foodDetails: QueueObject = { foodId, userId, userAllergies: JSON.parse(userAllergies), failureAttempts: 3, delayBeforeTrial: 2 }
+    const foodDetails: QueueObject = { foodId, userEmail, userAllergies: JSON.parse(userAllergies), failureAttempts: 3, delayBeforeTrial: 2 }
     await redis.lpush("foodIds", foodDetails);
     processQueue()
     res.status(200).json({ 'message': 'result' });
@@ -26,8 +26,8 @@ foodItem.post('/packcheck/:foodId/:userId', async (req, res) => {
   }
 })
 
-foodItem.get('/api/job-events/:foodId/:userId', (req, res) => {
-  const { foodId, userId } = req.params;
+foodItem.get('/api/job-events/:foodId/:userEmail', (req, res) => {
+  const { foodId, userEmail } = req.params;
   // Set SSE headers
   res.writeHead(200, {
     'Content-Type': 'text/event-stream',
@@ -39,11 +39,11 @@ foodItem.get('/api/job-events/:foodId/:userId', (req, res) => {
   res.write('data: {"status": "connected"}\n\n');
 
   // Add this connection to our tracking
-  addSSEConnection(foodId, userId, res);
+  addSSEConnection(foodId, userEmail, res);
 
   // Handle client disconnect
   req.on('close', () => {
-    removeSSEConnection(foodId, userId, res);
+    removeSSEConnection(foodId, userEmail, res);
     res.end();
   });
 });

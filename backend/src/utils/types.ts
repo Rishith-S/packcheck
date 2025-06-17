@@ -1,6 +1,6 @@
 export interface QueueObject {
   foodId: string;
-  userId:string;
+  userEmail:string;
   userAllergies : string[];
   failureAttempts: number;
   delayBeforeTrial: number;

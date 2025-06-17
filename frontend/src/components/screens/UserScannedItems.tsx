@@ -4,12 +4,15 @@ import { UserActivityInterface } from "./Homepage";
 import { CheckCircle, AlertCircle } from "lucide-react";
 import Loader from "../utils/Loader";
 import Pagination from "../utils/Pagination";
+import { useNavigate } from "react-router-dom";
 
 export default function UserScannedItems() {
   const [pageNo, setPageNo] = useState(0);
   const [loading, setLoading] = useState(false);
   const [totalPages, setTotalPages] = useState(0);
   const [userActivity, setUserActivity] = useState<UserActivityInterface[]>([]);
+  const navigate = useNavigate();
+
   useEffect(() => {
     const fetch = async () => {
       setLoading(true);
@@ -26,14 +29,18 @@ export default function UserScannedItems() {
         setTotalPages(
           res.data.count
         )
-      } catch (error) {
+      } catch (error: any) {
         console.log(error);
+        if (error.response?.status === 401) {
+          localStorage.clear();
+          navigate("/login");
+        }
       } finally {
         setLoading(false);
       }
     };
     fetch();
-  }, [pageNo]);
+  }, [pageNo, navigate]);
 
   if (loading) return <Loader />;
 

@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import Loader from "../utils/Loader";
 
 interface SSEData {
@@ -25,6 +25,8 @@ const FoodStatusTracker = () => {
   const [imgIndex, setImgIndex] = useState(0);
   const [errorMessage, setErrorMessage] = useState(false);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate();
+
   useEffect(() => {
     let eventSource: EventSource | null = null;
     const fetch = async () => {
@@ -62,15 +64,19 @@ const FoodStatusTracker = () => {
           setLoading(false);
           () => eventSource!.close();
         }
-      } catch (error) {
+      } catch (error: any) {
         console.error("Error fetchingdata:", error);
+        if (error.response?.status === 401) {
+          localStorage.clear();
+          navigate("/login");
+        }
       }
     };
     fetch();
     return () => {
       if (eventSource) eventSource.close();
     };
-  }, [foodId, userEmail]);
+  }, [foodId, userEmail, navigate]);
 
   if (errorMessage)
     return (

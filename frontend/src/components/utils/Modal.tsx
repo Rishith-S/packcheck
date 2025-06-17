@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Dialog, DialogBackdrop, DialogPanel } from "@headlessui/react";
 import { ToastContainer, toast } from 'react-toastify';
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 export default function Modal({
   open,
@@ -16,6 +17,7 @@ export default function Modal({
 }) {
   const [modalUserAllergies, setModalUserAllergies] = useState<string[]>(userAllergies);
   const [inputText, setInputText] = useState<string>('');
+  const navigate = useNavigate();
 
   const notify = (message: string) =>
     toast(message, {
@@ -43,8 +45,12 @@ export default function Modal({
         localStorage.setItem('allergies',JSON.stringify(modalUserAllergies));
         notify("Allergies updated");
       }
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
+      if (error.response?.status === 401) {
+        localStorage.clear();
+        navigate("/login");
+      }
     } finally{
       setTimeout(()=>{
         setOpen(false);

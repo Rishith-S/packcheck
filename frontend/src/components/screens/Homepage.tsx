@@ -38,14 +38,19 @@ export default function Homepage() {
         setUserActivity(
           res.data.userFoodScans as unknown as UserActivityInterface[]
         );
-      } catch (error) {
+      } catch (error: any) {
         console.log(error);
+        if (error.response?.status === 401) {
+          // Clear local storage and redirect to login
+          localStorage.clear();
+          navigate("/login");
+        }
       } finally {
         setLoading(false);
       }
     };
     fetch();
-  }, []);
+  }, [navigate]);
 
   if (loading) return <Loader />;
 

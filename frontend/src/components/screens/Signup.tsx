@@ -69,9 +69,13 @@ export default function Signup() {
         navigate("/");
       }
 
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
-      setError(error instanceof Error ? error.message : "An unexpected error occurred");
+      if (error.response?.status === 401) {
+        setError("Authentication failed. Please try again.");
+      } else {
+        setError(error instanceof Error ? error.message : "An unexpected error occurred");
+      }
     } finally{
       setIsLoading(false);
     }
@@ -85,8 +89,15 @@ export default function Signup() {
         `${import.meta.env.VITE_SERVER_URL}/auth/url/signup`
       )) as any;
       window.location.assign(response.data.url);
-    } catch (err) {
-      console.error(err);
+    } catch (error: any) {
+      console.error(error);
+      if (error.response?.status === 401) {
+        setError("Authentication failed. Please try again.");
+      } else {
+        navigate('/auth/signup');
+      }
+    } finally {
+      setIsLoading(false);
     }
   };
 

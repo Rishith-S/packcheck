@@ -34,9 +34,13 @@ export default function PackCheckLogin() {
           localStorage.setItem("allergies", JSON.stringify(userDetails.allergies));
           navigate("/");
         }
-      } catch (error) {
+      } catch (error: any) {
         console.log(error);
-        setError(error instanceof Error ? error.message : "An unexpected error occurred");
+        if (error.response?.status === 401) {
+          setError("Invalid email or password");
+        } else {
+          setError(error instanceof Error ? error.message : "An unexpected error occurred");
+        }
       } finally{
         setIsLoading(false);
       }
@@ -49,9 +53,13 @@ export default function PackCheckLogin() {
     try {
       const response = (await axios.get(`${import.meta.env.VITE_SERVER_URL}/auth/url/login`)) as any;
       window.location.assign(response.data.url);
-    } catch (error) {
+    } catch (error: any) {
       console.log(error);
-      navigate('/auth/login');
+      if (error.response?.status === 401) {
+        setError("Authentication failed. Please try again.");
+      } else {
+        navigate('/auth/login');
+      }
     }
     finally{
       setIsLoading(false);

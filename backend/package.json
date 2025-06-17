@@ -6,6 +6,7 @@
   "dependencies": {
     "@google/generative-ai": "^0.24.0",
     "@prisma/client": "^6.6.0",
+    "@supabase/supabase-js": "^2.50.0",
     "@types/bcrypt": "^5.0.2",
     "@types/cors": "^2.8.17",
     "@types/express": "^5.0.1",

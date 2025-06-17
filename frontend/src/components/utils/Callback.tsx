@@ -19,7 +19,7 @@ export default function Callback() {
     (async () => {
       if (!accessToken || accessToken.length === 0) {
         try {
-          if (called.current) return; // prevent rerender caused by StrictMode
+          if (called.current) return; 
           called.current = true;
           const res = await axios.get(
             `${import.meta.env.VITE_SERVER_URL}/auth/token${

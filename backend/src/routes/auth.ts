@@ -142,7 +142,7 @@ authRouter.get('/token', async (req: Request, res: Response) => {
 
       res.cookie('jwt', refreshToken, {
         httpOnly: true,
-        sameSite: 'lax',
+        sameSite: 'none',
         secure: true,
         // secure: false,
         maxAge: 3 * 24 * 60 * 60 * 1000

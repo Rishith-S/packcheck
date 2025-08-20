@@ -103,7 +103,7 @@ export default function Signup() {
 
   return (
     <div className="flex min-h-screen bg-black">
-      <div className="hidden relative lg:flex m-8 bg-neutral-900 items-center justify-center w-1/2 p-8 rounded-lg shadow-md text-white">
+      <div className="hidden relative lg:flex m-8 bg-neutral-900 items-center justify-center w-1/2 p-8 rounded-3xl shadow-lg text-white">
         <div className="absolute w-[550px] h-[550px] flex items-center bg-gradient-to-r from-teal-400/30 via-teal-300/40 to-teal-400/30 rounded-full justify-center animate-spin" />
         <div className="absolute w-[450px] h-[450px] flex items-center bg-gradient-to-r from-teal-400/30 via-teal-300/40 to-teal-400/30 rounded-full justify-center animate-spin" style={{animationDirection: 'reverse'}} />
         <div className="absolute w-[400px] h-[400px] flex items-center bg-gradient-to-br from-teal-400/50 via-teal-300/60 to-teal-400/50 rounded-full justify-center animate-spin" />

@@ -103,9 +103,31 @@ export default function Signup() {
 
   return (
     <div className="flex min-h-screen bg-black">
+      <div className="hidden relative lg:flex m-8 bg-neutral-900 items-center justify-center w-1/2 p-8 rounded-lg shadow-md text-white">
+        <div className="absolute w-[550px] h-[550px] flex items-center bg-gradient-to-r from-teal-400/30 via-teal-300/40 to-teal-400/30 rounded-full justify-center animate-spin" />
+        <div className="absolute w-[450px] h-[450px] flex items-center bg-gradient-to-r from-teal-400/30 via-teal-300/40 to-teal-400/30 rounded-full justify-center animate-spin" style={{animationDirection: 'reverse'}} />
+        <div className="absolute w-[400px] h-[400px] flex items-center bg-gradient-to-br from-teal-400/50 via-teal-300/60 to-teal-400/50 rounded-full justify-center animate-spin" />
+        <div className="absolute w-[350px] h-[350px] flex items-center bg-gradient-to-tl from-teal-400/70 via-teal-300/80 to-teal-400/70 rounded-full justify-center animate-pulse" />
+        <div className="absolute w-[320px] h-[320px] flex items-center bg-gradient-to-tr from-teal-400/60 via-teal-300/70 to-teal-400/60 rounded-full justify-center animate-pulse" style={{ animationDuration: '6s' }} />
+        <div className="absolute w-[300px] h-[300px] rounded-full bg-gradient-to-br from-teal-400 via-teal-300 to-teal-500 animate-pulse" style={{ animationDuration: '3s' }} />
+        <div className="absolute w-[280px] h-[280px] rounded-full bg-gradient-to-r from-transparent via-teal-200/20 to-transparent animate-spin" style={{ animationDuration: '15s' }} />
+        
+        {/* Floating particles effect */}
+        <div className="absolute w-[450px] h-[450px] rounded-full">
+          <div className="absolute top-1/4 left-1/4 w-2 h-2 bg-teal-200/60 rounded-full animate-bounce" style={{ animationDelay: '0s', animationDuration: '2s' }} />
+          <div className="absolute top-1/3 right-1/3 w-1.5 h-1.5 bg-teal-300/50 rounded-full animate-bounce" style={{ animationDelay: '0.5s', animationDuration: '2.5s' }} />
+          <div className="absolute bottom-1/3 left-1/3 w-1 h-1 bg-teal-400/40 rounded-full animate-bounce" style={{ animationDelay: '1s', animationDuration: '3s' }} />
+          <div className="absolute bottom-1/4 right-1/4 w-1.5 h-1.5 bg-teal-200/50 rounded-full animate-bounce" style={{ animationDelay: '1.5s', animationDuration: '2.2s' }} />
+        </div>
+        <div className="text-center z-10 bg-neutral-900/90 backdrop-blur-sm h-full items-center justify-center flex flex-col p-8 rounded-lg mb-8">
+          <div className="font-pixelfont text-6xl text-teal-300 flex justify-center mb-2">
+            PackCheck
+          </div>
+          <p className="text-lg text-white">Scan barcodes with PackCheck to quickly check for allergens and determine if you can eat it safely.</p>
+        </div>
+      </div>
       <div className="flex flex-col justify-center w-full max-w-md p-8 mx-auto rounded-lg shadow-md text-white my-8">
         <div className="text-center mb-8">
-          {/* Company Logo */}
           <div className="flex justify-center text-teal-300 text-6xl font-pixelfont mb-2">
             PackCheck
           </div>
